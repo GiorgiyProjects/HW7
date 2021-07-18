@@ -27,7 +27,7 @@ set(Boost_USE_STATIC_RUNTIME OFF)
 add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
 
 find_package(Boost 1.65.0 REQUIRED COMPONENTS system thread filesystem program_options regex)
-add_executable(bayan main.cpp)
+add_executable(bayan main.cpp CommandArgParser.cpp CommandArgParser.h DirectoryContentFiltrator.cpp DirectoryContentFiltrator.h)
 
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
