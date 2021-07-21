@@ -2,9 +2,9 @@
 #include "LazyFileGroupComparator.h"
 
 // todo: add other hashing functions
-void LazyFileGroupComparator::RemoveNonDupKeys(unordered_map<int, vector<std::ifstream*>>& hash)
+void LazyFileGroupComparator::RemoveNonDupKeys(unordered_map<string, vector<std::ifstream*>>& hash)
 {
-    vector<int> to_remove;
+    vector<string> to_remove;
     for (const auto& obj:hash) {
         if (obj.second.size() <= 1)
             to_remove.push_back(obj.first);
@@ -16,10 +16,11 @@ void LazyFileGroupComparator::RemoveNonDupKeys(unordered_map<int, vector<std::if
     return;
 }
 
-int ConvertCrc32(string s) {
+string ConvertCrc32(string s) {
     boost::crc_32_type result;
     result.process_bytes(s.data(), s.length());
-    return result.checksum();
+    return s;
+    //return (result.checksum());
 }
 
 LazyFileGroupComparator::LazyFileGroupComparator() {
@@ -30,7 +31,7 @@ LazyFileGroupComparator::LazyFileGroupComparator() {
 void LazyFileGroupComparator::OutputSimilarInGroups(vector<string> files, size_t block_size, string hash_func)
 {
     if (files.size() <= 1) return; // if group consists of a single file skip it
-    unordered_map<int, vector<std::ifstream*>> hash; // this has will store the previous generation of groups of similar files
+    unordered_map<string, vector<std::ifstream*>> hash; // this has will store the previous generation of groups of similar files
     // open all files in a group for reading
     unordered_map<std::ifstream*, string> descr_to_name;
     for (const auto& file:files) {
@@ -43,13 +44,13 @@ void LazyFileGroupComparator::OutputSimilarInGroups(vector<string> files, size_t
         RemoveNonDupKeys(hash);
         if (hash.empty()) return;
 
-        unordered_map<int, vector<std::ifstream*>> hash_new_gen; // we do not store previous keys, only store a new one
+        unordered_map<string, vector<std::ifstream*>> hash_new_gen; // we do not store previous keys, only store a new one
         for (const auto& obj : hash)
         {
             for (const auto &f:obj.second) {
                 char c[block_size];
                 f->read(c, block_size);
-                int key = mHashLib[hash_func](c);
+                string key = mHashLib[hash_func](c);
                 hash_new_gen[key].push_back(f);
             }
         }

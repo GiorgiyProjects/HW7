@@ -10,8 +10,8 @@ using namespace fs;
 /*Can only compare files of the same sizes*/
 class LazyFileGroupComparator {
 private:
-    map<string, function<int(string)>> mHashLib;
-    void RemoveNonDupKeys(unordered_map<int, vector<std::ifstream*>>& hash);
+    map<string, function<string(string)>> mHashLib;
+    void RemoveNonDupKeys(unordered_map<string, vector<std::ifstream*>>& hash);
 public:
     LazyFileGroupComparator();
     void OutputSimilarInGroups(vector<string> files, size_t block_size, string hash_func);

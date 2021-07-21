@@ -1,4 +1,5 @@
 #include "DirectoryContentFiltrator.h"
+#include <iostream>
 
 std::set<std::string> DirectoryContentFiltrator::FilterDirectories(set<fs::path> IncDirs, set<fs::path> ExcDirs, set<string> Masks, size_t ScanLvl, size_t MinSize)
 {
@@ -42,7 +43,6 @@ std::set<std::string> DirectoryContentFiltrator::FilterDirectories(set<fs::path>
     {
         files.erase(f);
     }
-
     return files;
 }
 

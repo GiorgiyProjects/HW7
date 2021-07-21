@@ -1,4 +1,5 @@
 #include "CommandArgParser.h"
+#include<iostream>
 
 CommandArgParser::CommandArgParser(int argc, char *argv[]) {
     mDesc.add_options()
@@ -10,7 +11,6 @@ CommandArgParser::CommandArgParser(int argc, char *argv[]) {
             ("masks",  po::value<strings>()->multitoken(), "list of masks to filer by")
             ("block_size", po::value<std::size_t>()->default_value(5), "size f block for file comparison" )
             ("hash_func", po::value<std::string>()->default_value("crc32"), "hashing function");
-    po::variables_map mVarMap;
     po::store(po::parse_command_line(argc, argv, mDesc, po::command_line_style::default_style), mVarMap);
     po::notify(mVarMap);
     return;
@@ -31,7 +31,7 @@ set<fs::path> CommandArgParser::GetIncludeDirectories() {
 set<fs::path> CommandArgParser::GetExcludeDirectories() {
     if (mExcDirs.empty()) {
         if (mVarMap.count("exc_dirs")) {
-            for (const auto &a : mVarMap["inc_dirs"].as<strings>())
+            for (const auto &a : mVarMap["exc_dirs"].as<strings>())
                 mExcDirs.insert(a);
         }
     }
