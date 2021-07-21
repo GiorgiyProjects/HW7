@@ -1,7 +1,6 @@
 #include "CommandArgParser.h"
 
-
-CommandArgParser::CommandArgParser(int argc, const char *argv[]) {
+CommandArgParser::CommandArgParser(int argc, char *argv[]) {
     mDesc.add_options()
             ("help,h", "This screen")
             ("inc_dirs", po::value<strings>()->multitoken(), "list of include dirs")
@@ -50,17 +49,25 @@ std::set<string> CommandArgParser::GetMasks() {
 }
 
 size_t CommandArgParser::GetScanLvl() {
-    return mVarMap["scan_lvl"].as<size_t>();
+    if (mVarMap.count("scan_lvl"))
+        return mVarMap["scan_lvl"].as<size_t>();
+    return 1;
 }
 
 size_t CommandArgParser::GetMinFileSize() {
-    return mVarMap["min_fs"].as<size_t>();
+    if (mVarMap.count("min_fs"))
+        return mVarMap["min_fs"].as<size_t>();
+    return 1;
 }
 
 size_t CommandArgParser::GetBlockSize() {
-    return mVarMap["block_size"].as<size_t>();
+    if (mVarMap.count("block_size"))
+        return mVarMap["block_size"].as<size_t>();
+    return 5;
 }
 
 string CommandArgParser::GetHashFunction() {
-    return mVarMap["hash_func"].as<string>();
+    if (mVarMap.count("block_size"))
+        return mVarMap["hash_func"].as<string>();
+    return("crc32");
 }

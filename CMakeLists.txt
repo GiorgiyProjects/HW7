@@ -2,37 +2,18 @@ cmake_minimum_required(VERSION 3.5)
 
 project(bayan)
 
-find_package(Boost COMPONENTS unit_test_framework)
-
 set(CMAKE_CXX_STANDARD 17)
+# set(BOOST_SYSTEM "${BOOST_LATEST_BIN_DIR}/libboost_system.so")
+# include_directories(${CMAKE_SOURCE_DIR} ${BOOST_SYSTEM})
+# add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
 
-
-set(SHARED_DIR "${CMAKE_SOURCE_DIR}/../shared")
-
-set(BOOST_LATEST_DIR            "${SHARED_DIR}/boost_1_68_0")
-set(BOOST_LATEST_BIN_DIR        "${BOOST_LATEST_DIR}/stage/lib")
-set(BOOST_LATEST_INCLUDE_DIR    "${BOOST_LATEST_DIR}/boost")
-set(BOOST_SYSTEM                "${BOOST_LATEST_BIN_DIR}/libboost_system.so")
-set(BOOST_FS                    "${BOOST_LATEST_BIN_DIR}/libboost_filesystem.so")
-set(BOOST_THREAD                "${BOOST_LATEST_BIN_DIR}/libboost_thread.so")
-
+find_package(Boost 1.65.0 REQUIRED COMPONENTS thread system filesystem program_options regex unit_test_framework)
+add_executable(bayan main.cpp CommandArgParser.cpp CommandArgParser.h DirectoryContentFiltrator.cpp DirectoryContentFiltrator.h BoostIncludes.h LazyFileGroupComparator.cpp LazyFileGroupComparator.h)
+add_executable(test tests.cpp CommandArgParser.cpp CommandArgParser.h DirectoryContentFiltrator.cpp DirectoryContentFiltrator.h BoostIncludes.h LazyFileGroupComparator.cpp LazyFileGroupComparator.h)
 
 include_directories(${CMAKE_SOURCE_DIR} ${BOOST_LATEST_INCLUDE_DIR})
-
-set(BOOST_LIBRARYDIR "/usr/lib/x86_64-linux-gnu/")
-set(Boost_USE_STATIC_LIBS OFF)
-set(Boost_USE_MULTITHREADED ON)
-set(Boost_USE_STATIC_RUNTIME OFF)
-
-add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
-
-find_package(Boost 1.65.0 REQUIRED COMPONENTS system thread filesystem program_options regex)
-add_executable(bayan main.cpp CommandArgParser.cpp CommandArgParser.h DirectoryContentFiltrator.cpp DirectoryContentFiltrator.h)
-
-if(Boost_FOUND)
-    include_directories(${Boost_INCLUDE_DIRS})
-    target_link_libraries(bayan PUBLIC Boost::system Boost::filesystem Boost::thread Boost::program_options Boost::regex)
-endif()
+target_link_libraries(bayan PUBLIC Boost::filesystem Boost::thread Boost::system Boost::program_options Boost::regex)
+target_link_libraries(test PUBLIC Boost::filesystem Boost::thread Boost::system Boost::program_options Boost::regex)
 
 
 

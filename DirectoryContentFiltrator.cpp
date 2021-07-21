@@ -1,4 +1,3 @@
-#include <boost/range/iterator_range.hpp>
 #include "DirectoryContentFiltrator.h"
 
 std::set<std::string> DirectoryContentFiltrator::FilterDirectories(set<fs::path> IncDirs, set<fs::path> ExcDirs, set<string> Masks, size_t ScanLvl, size_t MinSize)
@@ -47,7 +46,7 @@ std::set<std::string> DirectoryContentFiltrator::FilterDirectories(set<fs::path>
     return files;
 }
 
-unordered_map<size_t, vector<string>> DirectoryContentFiltrator::GetGroupsBySize(std::set<std::string>& files)
+unordered_map<size_t, vector<string>> DirectoryContentFiltrator::GetGroupsByFileSize(std::set<std::string>& files)
 {
     unordered_map<size_t, vector<string>> file_groups; // groups are distinguished by size. if files dont have the same size, they cannot be similar
     for (const auto& f : files) {

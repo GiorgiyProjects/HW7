@@ -2,14 +2,12 @@
 
 #ifndef COMMAND_ARG_PARSER_H
 #define COMMAND_ARG_PARSER_H
-
-#include <boost/program_options.hpp>
-#include <boost/filesystem.hpp>
+#include "BoostIncludes.h"
 #include <set>
 
 using namespace std;
-namespace po = boost::program_options;
-namespace fs = boost::filesystem;
+using namespace po;
+using namespace fs;
 using strings = std::vector<std::string>;
 
 class CommandArgParser {
@@ -22,7 +20,7 @@ private:
     std::set<string> mMasks;
 
 public:
-    CommandArgParser(int argc, const char *argv[]);
+    CommandArgParser(int argc, char *argv[]);
     set<fs::path> GetIncludeDirectories();
     set<fs::path> GetExcludeDirectories();
     std::set<string> GetMasks();
