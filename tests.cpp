@@ -57,7 +57,9 @@ BOOST_AUTO_TEST_SUITE( TestSuite )
                                             parser.GetHashFunction()); // function that compares files
                 }
             }
-            BOOST_CHECK(output.is_equal("255\n"));
+            BOOST_CHECK(output.is_equal("../tests/test_include_exclude/1.txt\n"
+                                           "../tests/test_include_exclude/1/1.txt\n"
+                                           "\n"));
         }
     }
 BOOST_AUTO_TEST_SUITE_END()

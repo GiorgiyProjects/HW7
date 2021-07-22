@@ -37,10 +37,11 @@ void LazyFileGroupComparator::OutputSimilarInGroups(vector<string> files, size_t
     for (const auto& file:files) {
         std::ifstream* f = new std::ifstream(file, std::ios::in);
         descr_to_name[f] = file;
-        hash[0].push_back(f);  // initially we assume they are all in the same group
+        hash[""].push_back(f);  // initially we assume they are all in the same group
     }
-
-    while(!((*descr_to_name.begin()).first)->eof()) {
+    bool eof_flag=0;
+    //while(!((*descr_to_name.begin()).first)->eof()) {
+    while (!eof_flag) {
         RemoveNonDupKeys(hash);
         if (hash.empty()) return;
 
@@ -50,11 +51,13 @@ void LazyFileGroupComparator::OutputSimilarInGroups(vector<string> files, size_t
             for (const auto &f:obj.second) {
                 char c[block_size];
                 f->read(c, block_size);
+                if (f->eof()) eof_flag=true;
                 string key = mHashLib[hash_func](c);
                 hash_new_gen[key].push_back(f);
             }
         }
         hash = hash_new_gen;
+        //eof_flag =
     }
 
     RemoveNonDupKeys(hash);
