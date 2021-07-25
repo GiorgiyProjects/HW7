@@ -88,11 +88,11 @@ BOOST_AUTO_TEST_SUITE( TestSuite )
                 int argc = 3;
                 argv[0] = "/home/bbrave/Desktop/OTUS/homeworks/hw7/HW7/cmake-build-debug/test";
                 argv[1] = "--inc_dirs=../tests/test_mask/";
-                argv[2] = "--mask=1*";
+                argv[2] = "--mask=^[0-9]+$";
                 MainManager(argc, argv);
             }
-            BOOST_CHECK(output.is_equal("../tests/test_scan_lvl/1_1.txt\n"
-                                        "../tests/test_scan_lvl/1_2.txt\n"
+            BOOST_CHECK(output.is_equal("../tests/test_mask/1\n"
+                                        "../tests/test_mask/12\n"
                                         "\n"));
         }
     }

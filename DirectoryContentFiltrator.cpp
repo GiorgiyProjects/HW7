@@ -14,17 +14,18 @@ std::set<std::string> DirectoryContentFiltrator::FilterDirectories(set<fs::path>
     /* remove files that don't match the mask */
     set<string> no_match;
     for (const auto& f : files) {
+        string filename = fs::path(f).filename().string();
         boost::smatch what;
         for (const auto& mask : Masks)
         {
             const boost::regex re(mask);
-            if (!boost::regex_match(f, what, re))
+            if (!boost::regex_match(filename, what, re))
             {
                 no_match.insert(f);
             }
         }
     }
-    for (const auto& f : Masks)
+    for (const auto& f : no_match)
     {
         files.erase(f);
     }
