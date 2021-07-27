@@ -138,6 +138,7 @@ BOOST_AUTO_TEST_SUITE( TestSuite )
                 MainManager(argc, argv);
             }
             BOOST_CHECK(output.is_equal(
+                    "tests/test_big/1/1.1/2.2\n"
                     "tests/test_big/1/2.1\n"
                     "tests/test_big/2/2.3\n"
                     "tests/test_big/2/2.4\n"
