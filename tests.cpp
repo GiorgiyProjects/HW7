@@ -79,7 +79,7 @@ BOOST_AUTO_TEST_SUITE( TestSuite )
                                            "\n"));
         }
     }
-
+    // check if mask works correctly
     BOOST_FIXTURE_TEST_CASE ( test4, ArgsFixture ) {
         {
             boost::test_tools::output_test_stream output;
@@ -94,6 +94,32 @@ BOOST_AUTO_TEST_SUITE( TestSuite )
             BOOST_CHECK(output.is_equal("../tests/test_mask/1\n"
                                         "../tests/test_mask/12\n"
                                         "\n"));
+        }
+    }
+    // big test
+    BOOST_FIXTURE_TEST_CASE ( test5, ArgsFixture ) {
+        {
+            boost::test_tools::output_test_stream output;
+            {
+                cout_redirect guard(output.rdbuf());
+                int argc = 2;
+                argv[0] = "/home/bbrave/Desktop/OTUS/homeworks/hw7/HW7/cmake-build-debug/test";
+                argv[1] = "--inc_dirs=../tests/test_big/";
+                argv[2] = "--exc_dirs=../tests/test_big/2/";
+                MainManager(argc, argv);
+            }
+            BOOST_CHECK(output.is_equal(
+                    "../tests/test_big/1.1\n"
+                    "../tests/test_big/1/1.1/1.2\n"
+                    "../tests/test_big/3/3.1/1.3\n"
+                    "\n"
+                    "../tests/test_big/1/1.1/2.2\n"
+                    "../tests/test_big/1/2.1\n"
+                    "../tests/test_big/2/2.3\n"
+                    "../tests/test_big/2/2.4\n"
+                    "../tests/test_big/3/2.5\n"
+                    "\n"
+                    ));
         }
     }
 BOOST_AUTO_TEST_SUITE_END()
