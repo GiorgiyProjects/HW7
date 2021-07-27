@@ -1,0 +1,4 @@
+/home/runner/work/HW7/HW7/CMakeFiles/rebuild_cache.dir
+/home/runner/work/HW7/HW7/CMakeFiles/edit_cache.dir
+/home/runner/work/HW7/HW7/CMakeFiles/test.dir
+/home/runner/work/HW7/HW7/CMakeFiles/bayan.dir
