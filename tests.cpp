@@ -33,9 +33,13 @@ BOOST_AUTO_TEST_SUITE( TestSuite )
             {
                 cout_redirect guard(output.rdbuf());
                 int argc = 3;
-                argv[0] = "/home/bbrave/Desktop/OTUS/homeworks/hw7/HW7/cmake-build-debug/test";
-                argv[1] = "--inc_dirs=../tests/test_include_exclude/";
-                argv[2] = "--scan_lvl=1";
+                string argv0,argv1,argv2;
+                argv0 = "/home/bbrave/Desktop/OTUS/homeworks/hw7/HW7/cmake-build-debug/test";
+                argv1 = "--inc_dirs=../tests/test_include_exclude/";
+                argv2 = "--scan_lvl=1";
+                argv[0] = const_cast<char*>(argv0.c_str());
+                argv[1] = const_cast<char*>(argv1.c_str());
+                argv[2] = const_cast<char*>(argv2.c_str());
                 MainManager(argc, argv);
             }
             BOOST_CHECK(output.is_equal("../tests/test_include_exclude/1.txt\n"
@@ -51,10 +55,17 @@ BOOST_AUTO_TEST_SUITE( TestSuite )
             {
                 cout_redirect guard(output.rdbuf());
                 int argc = 4;
-                argv[0] = "/home/bbrave/Desktop/OTUS/homeworks/hw7/HW7/cmake-build-debug/test";
-                argv[1] = "--inc_dirs=../tests/test_include_exclude/";
-                argv[2] = "--exc_dirs=../tests/test_include_exclude/2/";
-                argv[3] = "--scan_lvl=1";
+                string argv0,argv1,argv2,argv3;
+                argv0 = "/home/bbrave/Desktop/OTUS/homeworks/hw7/HW7/cmake-build-debug/test";
+                argv1 = "--inc_dirs=../tests/test_include_exclude/";
+                argv2 = "--exc_dirs=../tests/test_include_exclude/2/";
+                argv3 = "--scan_lvl=1";
+
+                argv[0] = const_cast<char*>(argv0.c_str());
+                argv[1] = const_cast<char*>(argv1.c_str());
+                argv[2] = const_cast<char*>(argv2.c_str());
+                argv[3] = const_cast<char*>(argv3.c_str());
+
                 MainManager(argc, argv);
             }
             BOOST_CHECK(output.is_equal("../tests/test_include_exclude/1.txt\n"
@@ -69,9 +80,15 @@ BOOST_AUTO_TEST_SUITE( TestSuite )
             {
                 cout_redirect guard(output.rdbuf());
                 int argc = 3;
-                argv[0] = "/home/bbrave/Desktop/OTUS/homeworks/hw7/HW7/cmake-build-debug/test";
-                argv[1] = "--inc_dirs=../tests/test_scan_lvl/";
-                argv[2] = "--scan_lvl=0";
+                string argv0, argv1, argv2;
+                argv0 = "/home/bbrave/Desktop/OTUS/homeworks/hw7/HW7/cmake-build-debug/test";
+                argv1 = "--inc_dirs=../tests/test_scan_lvl/";
+                argv2 = "--scan_lvl=0";
+
+                argv[0] = const_cast<char*>(argv0.c_str());
+                argv[1] = const_cast<char*>(argv1.c_str());
+                argv[2] = const_cast<char*>(argv2.c_str());
+
                 MainManager(argc, argv);
             }
             BOOST_CHECK(output.is_equal("../tests/test_scan_lvl/1_1.txt\n"
@@ -86,9 +103,15 @@ BOOST_AUTO_TEST_SUITE( TestSuite )
             {
                 cout_redirect guard(output.rdbuf());
                 int argc = 3;
-                argv[0] = "/home/bbrave/Desktop/OTUS/homeworks/hw7/HW7/cmake-build-debug/test";
-                argv[1] = "--inc_dirs=../tests/test_mask/";
-                argv[2] = "--mask=^[0-9]+$";
+                string argv0, argv1, argv2;
+                argv0 = "/home/bbrave/Desktop/OTUS/homeworks/hw7/HW7/cmake-build-debug/test";
+                argv1 = "--inc_dirs=../tests/test_mask/";
+                argv2 = "--mask=^[0-9]+$";
+
+                argv[0] = const_cast<char*>(argv0.c_str());
+                argv[1] = const_cast<char*>(argv1.c_str());
+                argv[2] = const_cast<char*>(argv2.c_str());
+
                 MainManager(argc, argv);
             }
             BOOST_CHECK(output.is_equal("../tests/test_mask/1\n"
@@ -103,9 +126,15 @@ BOOST_AUTO_TEST_SUITE( TestSuite )
             {
                 cout_redirect guard(output.rdbuf());
                 int argc = 2;
-                argv[0] = "/home/bbrave/Desktop/OTUS/homeworks/hw7/HW7/cmake-build-debug/test";
-                argv[1] = "--inc_dirs=../tests/test_big/";
-                argv[2] = "--exc_dirs=../tests/test_big/2/";
+                string argv0, argv1, argv2;
+                argv0 = "/home/bbrave/Desktop/OTUS/homeworks/hw7/HW7/cmake-build-debug/test";
+                argv1 = "--inc_dirs=../tests/test_big/";
+                argv2 = "--exc_dirs=../tests/test_big/2/";
+
+                argv[0] = const_cast<char*>(argv0.c_str());
+                argv[1] = const_cast<char*>(argv1.c_str());
+                argv[2] = const_cast<char*>(argv2.c_str());
+
                 MainManager(argc, argv);
             }
             BOOST_CHECK(output.is_equal(

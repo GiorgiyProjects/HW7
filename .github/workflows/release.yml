@@ -15,7 +15,8 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install libboost-all-dev -y
       - run: cmake .
       - run: make
-      - name: Create Release
+      - run: ./test
+          - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
